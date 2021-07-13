@@ -3,6 +3,7 @@
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostsAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,46 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/posts', function () {
-    return Post::all();
-});
+Route::get('/posts', [PostsAPIController::class, 'index']);
 
-Route::post('/posts', function () {
+Route::post('/posts', [PostsAPIController::class, 'create']);
 
-    request()->validate([
-       'title' => 'required',
-       'content' => 'required',
-    ]);
+Route::put('/posts/{post}', [PostsAPIController::class, 'update']);
 
-    return Post::create([
-        'title' => request('title'),
-        'content' => request('content')
-    ]);
-});
-
-Route::put('/posts/{post}', function (Post $post){
-
-    request()->validate([
-        'title' => 'required',
-        'content' => 'required',
-    ]);
-
-    $success = $post->update([
-        'title' => request('title'),
-        'content' => request('content'),
-    ]);
-
-    return [
-        'success' => $success
-    ];
-
-});
-
-Route::delete('/posts/{post}', function (Post $post) {
-
-    $success = $post->delete();
-
-    return [
-        'success' => $success
-    ];
-});
+Route::delete('/posts/{post}', [PostsAPIController::class, 'delete']);
