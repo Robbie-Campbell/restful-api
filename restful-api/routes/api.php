@@ -22,6 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/posts', [PostsAPIController::class, 'index']);
 
+Route::get('/posts/{post}', [PostsAPIController::class, 'single']);
+
 Route::post('/posts', [PostsAPIController::class, 'create']);
 
 Route::put('/posts/{post}', [PostsAPIController::class, 'update']);

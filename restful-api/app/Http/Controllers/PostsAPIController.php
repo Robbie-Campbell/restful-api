@@ -11,6 +11,10 @@ class PostsAPIController extends Controller
         return Post::all();
     }
 
+    public function single(Post $post) {
+        return $post;
+    }
+
     public function create() {
         request()->validate([
             'title' => 'required',
