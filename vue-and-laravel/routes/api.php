@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\SecretController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +21,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('post')->group(function () {
-    Route::get('/', [\App\Http\Controllers\PostController::class, 'index']);
-    Route::post('/', [\App\Http\Controllers\PostController::class, 'store']);
-    Route::put('/{id}', [\App\Http\Controllers\PostController::class, 'update']);
-    Route::get('/{id}', [\App\Http\Controllers\PostController::class, 'show']);
-    Route::delete('/{id}', [\App\Http\Controllers\PostController::class, 'destroy']);
+    Route::get('/', [PostController::class, 'index']);
+    Route::post('/', [PostController::class, 'store']);
+    Route::put('/{id}', [PostController::class, 'update']);
+    Route::get('/{id}', [PostController::class, 'show']);
+    Route::delete('/{id}', [PostController::class, 'destroy']);
 });
+
+Route::get('secrets', [SecretController::class, 'index']);
